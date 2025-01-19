@@ -17,7 +17,7 @@ class QueryBuilder<T> {
           (field) =>
             ({
               [field]: { $regex: search, $options: 'i' },
-            }) as FilterQuery<T>
+            }) as FilterQuery<T>,
         ),
       });
     }
@@ -25,10 +25,9 @@ class QueryBuilder<T> {
     return this;
   }
 
-
   sortAndOrder() {
     const sortField = this.query?.sort as string;
-    const sortOrder = this.query?.order === 'desc' ? -1 : 1; // 
+    const sortOrder = this.query?.order === 'desc' ? -1 : 1; //
 
     if (sortField) {
       this.modelQuery = this.modelQuery.sort({ [sortField]: sortOrder });
@@ -47,40 +46,37 @@ class QueryBuilder<T> {
     return this;
   }
 
-
   filter() {
     const queryObj = { ...this.query };
-  
+
     const excludeFields = ['searchTerm', 'sort', 'order', 'limit', 'page'];
     excludeFields.forEach((el) => delete queryObj[el]);
-  
+
     const filters: Record<string, unknown> = {};
-  
+
     // Special handling for `participants`
     if (queryObj.participants) {
       const participants = Array.isArray(queryObj.participants)
         ? queryObj.participants
         : [queryObj.participants];
-  
+
       filters.$or = participants.map((participant) => ({
         participants: { $regex: participant, $options: 'i' }, // Use $regex to perform partial matches
       }));
     }
-  
+
     // Add other filters
     Object.keys(queryObj).forEach((key) => {
       if (key !== 'participants') {
         filters[key] = queryObj[key];
       }
     });
-  
+
     // Apply filters to the query
     this.modelQuery = this.modelQuery.find(filters as FilterQuery<T>);
-  
+
     return this;
   }
-
- 
 }
 
 export default QueryBuilder;

@@ -2,9 +2,6 @@ import express from 'express';
 import { ParcelRoutes } from '../Modules/Parcel/Parcel.routes';
 import { AuthRoutes } from '../Modules/Auth/Auth.routes';
 
-
-
-
 const router = express.Router();
 
 const moduleRoutes = [
