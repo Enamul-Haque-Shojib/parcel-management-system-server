@@ -150,7 +150,7 @@ const statisticsForLineChartFromDB = async () => {
 
   const bookingDates = result.map((item) => {
     const date = new Date(item.bookingDate);
-    return date.toISOString().split('T')[0]; // Convert Date object to 'YYYY-MM-DD'
+    return date.toISOString().split('T')[0]; 
   });
 
   const booked = result.map((item) => item.totalBooked);
