@@ -40,6 +40,15 @@ const getAllAuths = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getAllDeliverMen = catchAsync(async (req, res) => {
+  const result = await AuthServices.getAllDeliverMenFromDB();
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Auths retrieved successfully',
+    data: result,
+  });
+});
 
 const deleteSingleAuth = catchAsync(async (req, res) => {
   const result = await AuthServices.deleteAuthFromDB(req.params.id);
@@ -64,8 +73,18 @@ const addUserReview = catchAsync(async (req, res) => {
   });
 });
 
-const getAllReviews = catchAsync(async (req, res) => {
-  const result = await AuthServices.getAllReviewsFromDB(req.params.id);
+const getAllDeliverMenReviews = catchAsync(async (req, res) => {
+  const result = await AuthServices.getAllDeliverMenReviewsFromDB();
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Review retrieved successfully',
+    data: result,
+  });
+});
+const getSingleDeliverManReviews = catchAsync(async (req, res) => {
+  const result = await AuthServices.getSingleDeliverManReviewsFromDB(req.params.id);
 
   sendResponse(res, {
     statusCode: 200,
@@ -125,9 +144,11 @@ export const AuthControllers = {
   authAccount,
   updateAuth,
   getAllAuths,
+  getAllDeliverMen,
   deleteSingleAuth,
   addUserReview,
-  getAllReviews,
+  getAllDeliverMenReviews,
+  getSingleDeliverManReviews,
   manageParcel,
   parcelStatusChange,
   authRoleChange,

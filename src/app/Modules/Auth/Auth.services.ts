@@ -51,6 +51,58 @@ const getAllAuthsFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+const getAllDeliverMenFromDB = async () => {
+  const deliverMenData = await AuthModel.find({ role: 'DeliverMan' });
+  const parcelData = await ParcelModel.find();
+  const reviewsData = await UserReviewModel.find();
+
+  type TDeliverManInfo = {
+    deliverMan_id?: string;
+    name?: string;
+    image?: string;
+    phoneNumber?: string;
+    delivered?: number;
+    reviews?: number;
+  };
+
+  const listDeliverMenInfo: TDeliverManInfo[] = [];
+
+  deliverMenData.forEach((man) => {
+    const deliverManInfo: TDeliverManInfo = {}; // Create a new object for each delivery man
+    deliverManInfo.deliverMan_id = man.authId;
+    deliverManInfo.name = man.authName;
+    deliverManInfo.image = man.authImgUrl;
+    deliverManInfo.phoneNumber = man.authPhoneNumber;
+
+    let deliveredCount = 0;
+    parcelData.forEach((parcel) => {
+      if (man.authId === parcel.deliveryMan && parcel.bookingStatus === 'Delivered') {
+        deliveredCount++;
+      }
+    });
+    deliverManInfo.delivered = deliveredCount;
+
+    // Initialize reviews with 0 by default
+    deliverManInfo.reviews = 0;
+
+    reviewsData.forEach((review) => {
+      if (review.deliverManId === man.authId) { // Match by authId
+        const totalReviews = review.reviews.length;
+        let ratingCount = 0;
+        review.reviews.forEach((r) => {
+          ratingCount += r.rating;
+        });
+        deliverManInfo.reviews = totalReviews > 0 ? ratingCount / totalReviews : 0;
+      }
+    });
+
+    listDeliverMenInfo.push(deliverManInfo); // Push a new object into the array
+  });
+
+  console.log(listDeliverMenInfo);
+};
+
+
 const deleteAuthFromDB = async (id: string) => {
   const deleteAuthInfo = await AuthModel.findByIdAndDelete(id);
   return deleteAuthInfo;
@@ -72,7 +124,12 @@ const addUserReviewIntoDB = async (
   return userReview;
 };
 
-const getAllReviewsFromDB = async (deliverManId: string) => {
+const getAllDeliverMenReviewsFromDB = async () => {
+  const result = await UserReviewModel.find()
+  return result;
+};
+const getSingleDeliverManReviewsFromDB = async (deliverManId: string) => {
+
   const reviewsData = await UserReviewModel.findOne(
     { deliverManId },
     { reviews: 1 },
@@ -176,7 +233,9 @@ export const AuthServices = {
   getAllAuthsFromDB,
   deleteAuthFromDB,
   addUserReviewIntoDB,
-  getAllReviewsFromDB,
+  getAllDeliverMenFromDB,
+  getAllDeliverMenReviewsFromDB,
+  getSingleDeliverManReviewsFromDB,
   parcelIntoDB,
   authRoleChangeIntoDB,
   createJwtToken,

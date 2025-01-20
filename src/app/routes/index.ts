@@ -1,6 +1,7 @@
 import express from 'express';
 import { ParcelRoutes } from '../Modules/Parcel/Parcel.routes';
 import { AuthRoutes } from '../Modules/Auth/Auth.routes';
+import { StatisticsRoutes } from '../Modules/Statistics/Statistics.routes';
 
 const router = express.Router();
 
@@ -12,6 +13,10 @@ const moduleRoutes = [
   {
     path: '/parcels',
     route: ParcelRoutes,
+  },
+  {
+    path: '/statistics',
+    route: StatisticsRoutes,
   },
 ];
 
