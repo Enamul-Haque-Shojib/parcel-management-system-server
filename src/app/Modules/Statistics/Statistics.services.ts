@@ -97,12 +97,79 @@ const topDeliverThreeMenIntoDB = async () => {
   return listTopThree
 };
 
+const statisticsForBarChartFromDB = async () => {
+    const result = await ParcelModel.aggregate([
+      {
+        $group: {
+          _id: "$bookingDate", // Group by bookingDate
+          total: { $sum: 1 }, // Count the number of parcels for each bookingDate
+        },
+      },
+      {
+        $sort: { _id: 1 }, // Sort by bookingDate in ascending order
+      },
+    ]);
+  
+    // Extract and format dates and counts into separate arrays
+    const bookingDate = result.map((item) => {
+      const date = new Date(item._id); // Ensure _id is treated as a Date object
+      return date.toISOString().split('T')[0]; // Convert to 'YYYY-MM-DD' format
+    });
+  
+    const booked = result.map((item) => item.total);
+  
+    return { bookingDate, booked };
+  };
+  
+
+const statisticsForLineChartFromDB = async () => {
+  const result = await ParcelModel.aggregate([
+    {
+      $group: {
+        _id: "$bookingDate",
+        totalBooked: { $sum: 1 },
+        totalDelivered: {
+          $sum: {
+            $cond: [{ $eq: ["$bookingStatus", "Delivered"] }, 1, 0],
+          },
+        },
+      },
+    },
+    {
+      $sort: { _id: 1 },
+    },
+    {
+      $project: {
+        _id: 0,
+        bookingDate: "$_id",
+        totalBooked: 1,
+        totalDelivered: 1,
+      },
+    },
+  ]);
+
+  const bookingDates = result.map((item) => {
+    const date = new Date(item.bookingDate);
+    return date.toISOString().split('T')[0]; // Convert Date object to 'YYYY-MM-DD'
+  });
+
+  const booked = result.map((item) => item.totalBooked);
+  const delivered = result.map((item) => item.totalDelivered);
+
+  return { bookingDates, booked, delivered };
+};
+
+  
+  
+
   
 
 
 export const StatisticsServices = {
     topDeliverThreeMenIntoDB,
-    numberBookedDeliveredUsingAppIntoDB
+    numberBookedDeliveredUsingAppIntoDB,
+    statisticsForBarChartFromDB,
+    statisticsForLineChartFromDB,
     
 
 }

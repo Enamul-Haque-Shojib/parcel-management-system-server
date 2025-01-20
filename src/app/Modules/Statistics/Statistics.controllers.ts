@@ -27,9 +27,26 @@ const topDeliverThreeMen = catchAsync(async (req, res) => {
     });
   });
 
+const statisticsForChart = catchAsync(async (req, res) => {
+   
+    const barChart = await StatisticsServices.statisticsForBarChartFromDB();
+    const lineChart = await StatisticsServices.statisticsForLineChartFromDB();
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'successfully calculated number',
+      data: {barChart, lineChart}
+    });
+  });
+
+
+
+
 
   export const StatisticsControllers = {
     topDeliverThreeMen,
-    numberBookedDeliveredUsingApp
+    numberBookedDeliveredUsingApp,
+    statisticsForChart
     
   }

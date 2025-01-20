@@ -16,6 +16,11 @@ router.get(
   
   StatisticsControllers.topDeliverThreeMen,
 );
+router.get(
+  '/chart',
+  
+  StatisticsControllers.statisticsForChart,
+);
 
 
 export const StatisticsRoutes = router;
