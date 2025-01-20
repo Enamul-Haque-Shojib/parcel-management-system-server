@@ -50,10 +50,10 @@ const topDeliverThreeMenIntoDB = async () => {
       return { id: key, deliveries: value };
   });
 
-  // Sort the flatList in descending order by the number of deliveries
+ 
   flatList.sort((a, b) => b.deliveries - a.deliveries);
 
-  // Get the top 3
+ 
   const topThree = flatList.slice(0, 3);
 
   const reviewsData = await UserReviewModel.find();
@@ -67,7 +67,7 @@ const topDeliverThreeMenIntoDB = async () => {
 
   const listTopThree: DeliverManData[] = [];
   topThree.forEach((man) => {
-      const deliverManData: DeliverManData = {}; // Create a new object for each deliver man
+      const deliverManData: DeliverManData = {}; 
 
       authData.forEach((auth) => {
           if (man.id === auth.authId) {
