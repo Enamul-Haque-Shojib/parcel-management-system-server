@@ -106,14 +106,14 @@ const statisticsForBarChartFromDB = async () => {
         },
       },
       {
-        $sort: { _id: 1 }, // Sort by bookingDate in ascending order
+        $sort: { _id: 1 }, 
       },
     ]);
   
-    // Extract and format dates and counts into separate arrays
+ 
     const bookingDate = result.map((item) => {
-      const date = new Date(item._id); // Ensure _id is treated as a Date object
-      return date.toISOString().split('T')[0]; // Convert to 'YYYY-MM-DD' format
+      const date = new Date(item._id); 
+      return date.toISOString().split('T')[0]; 
     });
   
     const booked = result.map((item) => item.total);
