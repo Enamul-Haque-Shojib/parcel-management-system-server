@@ -90,7 +90,7 @@ const topDeliverThreeMenIntoDB = async () => {
           }
       });
 
-      listTopThree.push(deliverManData); // Push the new object into the list
+      listTopThree.push(deliverManData); 
   });
 
   
@@ -101,8 +101,8 @@ const statisticsForBarChartFromDB = async () => {
     const result = await ParcelModel.aggregate([
       {
         $group: {
-          _id: "$bookingDate", // Group by bookingDate
-          total: { $sum: 1 }, // Count the number of parcels for each bookingDate
+          _id: "$bookingDate", 
+          total: { $sum: 1 }, 
         },
       },
       {
