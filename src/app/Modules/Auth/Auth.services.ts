@@ -32,7 +32,7 @@ const authAccountIntoDB = async (email: string, payload: TAuth) => {
   return authData;
 };
 const updateAuthIntoDB = async (id: string, payload: Partial<TAuth>) => {
-  console.log('-------->>>>>>>>>>>',id, payload)
+
   const updateAuthInfo = await AuthModel.findByIdAndUpdate(id, payload, {
     new: true,
   });
