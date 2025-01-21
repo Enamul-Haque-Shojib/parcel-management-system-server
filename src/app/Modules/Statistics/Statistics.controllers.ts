@@ -39,6 +39,18 @@ const statisticsForChart = catchAsync(async (req, res) => {
       data: {barChart, lineChart}
     });
   });
+const statisticsAuthParcel = catchAsync(async (req, res) => {
+   
+    const result = await StatisticsServices.statisticsAuthParcelFromDB(req.params.id);
+ 
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'successfully calculated number',
+      data: result
+    });
+  });
 
 
 
@@ -47,6 +59,7 @@ const statisticsForChart = catchAsync(async (req, res) => {
   export const StatisticsControllers = {
     topDeliverThreeMen,
     numberBookedDeliveredUsingApp,
-    statisticsForChart
+    statisticsForChart,
+    statisticsAuthParcel
     
   }

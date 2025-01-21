@@ -3,6 +3,7 @@ import { ParcelRoutes } from '../Modules/Parcel/Parcel.routes';
 import { AuthRoutes } from '../Modules/Auth/Auth.routes';
 import { StatisticsRoutes } from '../Modules/Statistics/Statistics.routes';
 
+
 const router = express.Router();
 
 const moduleRoutes = [
@@ -18,6 +19,7 @@ const moduleRoutes = [
     path: '/statistics',
     route: StatisticsRoutes,
   },
+ 
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

@@ -21,6 +21,7 @@ const authAccount = catchAsync(async (req, res) => {
 });
 
 const updateAuth = catchAsync(async (req, res) => {
+  console.log('controll--->>>',req.params.id, req.body)
   const result = await AuthServices.updateAuthIntoDB(req.params.id, req.body);
 
   sendResponse(res, {

@@ -1,3 +1,4 @@
+import AppError from "../../errors/AppError";
 import { AuthModel, UserReviewModel } from "../Auth/Auth.model";
 import { ParcelModel } from "../Parcel/Parcel.model";
 
@@ -18,7 +19,7 @@ const numberBookedDeliveredUsingAppIntoDB = async () => {
   const userData = await AuthModel.find();
   numberUsingApp = userData.length;
 
-  console.log(numberBooked, numberDelivered,numberUsingApp)
+
 
   return {numberBooked, numberDelivered, numberUsingApp}
 };
@@ -158,6 +159,50 @@ const statisticsForLineChartFromDB = async () => {
 
   return { bookingDates, booked, delivered };
 };
+const statisticsAuthParcelFromDB = async (id: string) => {
+  const parcelData = await ParcelModel.find();
+  const authData = await AuthModel.findById(id);
+  if(!authData) {
+    throw new AppError(400, 'No auth data found')
+  }
+
+
+ if(authData.role === 'User'){
+  let parcelCount = 0;
+  let parcelCost = 0;
+  parcelData.forEach(parcel => {
+    if(parcel.email === authData.email){
+      parcelCount ++;
+      parcelCost = parcelCost + parcel.price;
+    }
+  })
+  return {id: authData.authId, parcelCount, parcelCost}
+ }else if(authData.role === 'DeliverMan'){
+
+  const reviewData = await UserReviewModel.findOne({deliverManId: authData.authId})
+ 
+    let deliveredCount = 0;
+    parcelData.forEach(parcel => {
+      if(parcel.deliveryMan === authData.authId){
+        deliveredCount ++;
+      }
+    })
+    
+    let totalRating = 0;
+    let avgReview = 0;
+    if(reviewData){
+      const totalReview = reviewData?.reviews.length;
+      reviewData?.reviews.forEach(review => {
+        totalRating = totalRating + review.rating;
+      })
+      avgReview = totalRating / totalReview;
+    }
+    
+    return {id:authData.authId,deliveredCount, avgReview}
+ }
+
+ 
+};
 
   
   
@@ -170,6 +215,7 @@ export const StatisticsServices = {
     numberBookedDeliveredUsingAppIntoDB,
     statisticsForBarChartFromDB,
     statisticsForLineChartFromDB,
+    statisticsAuthParcelFromDB
     
 
 }

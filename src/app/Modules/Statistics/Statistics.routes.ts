@@ -21,6 +21,11 @@ router.get(
   
   StatisticsControllers.statisticsForChart,
 );
+router.get(
+  '/statistics-auth/:id',
+  
+  StatisticsControllers.statisticsAuthParcel,
+);
 
 
 export const StatisticsRoutes = router;

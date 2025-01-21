@@ -15,7 +15,7 @@ router.post(
 
 router.patch(
   '/update-auth/:id',
-  auth(AuthRole.Admin),
+
   validateRequest(authValidationSchema.updateAuthInfoValidationSchema),
   AuthControllers.updateAuth,
 );
