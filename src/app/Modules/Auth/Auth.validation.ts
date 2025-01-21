@@ -23,7 +23,7 @@ const updateAuthInfoValidationSchema = z.object({
 
 const userReviewValidationSchema = z.object({
   body: z.object({
-    review: z.string().min(1, 'Review is required'),
+    feedback: z.string().min(1, 'Review is required'),
   }),
 });
 

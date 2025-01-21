@@ -68,7 +68,7 @@ const getAllDeliverMenFromDB = async () => {
   const listDeliverMenInfo: TDeliverManInfo[] = [];
 
   deliverMenData.forEach((man) => {
-    const deliverManInfo: TDeliverManInfo = {}; // Create a new object for each delivery man
+    const deliverManInfo: TDeliverManInfo = {}; 
     deliverManInfo.deliverMan_id = man.authId;
     deliverManInfo.name = man.authName;
     deliverManInfo.image = man.authImgUrl;
@@ -155,6 +155,7 @@ const getSingleDeliverManReviewsFromDB = async (deliverManId: string) => {
 };
 
 const parcelIntoDB = async (id: string, payload: Record<string, unknown>) => {
+  console.log(id, payload)
   const updatedParcel = await ParcelModel.findByIdAndUpdate(
     id,
     {

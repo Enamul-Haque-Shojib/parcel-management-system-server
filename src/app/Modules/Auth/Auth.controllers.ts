@@ -94,6 +94,7 @@ const getSingleDeliverManReviews = catchAsync(async (req, res) => {
   });
 });
 const manageParcel = catchAsync(async (req, res) => {
+  console.log(req.params.id, req.body)
   const result = await AuthServices.parcelIntoDB(req.params.id, req.body);
 
   sendResponse(res, {
