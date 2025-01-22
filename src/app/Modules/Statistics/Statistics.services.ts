@@ -42,7 +42,7 @@ const topDeliverThreeMenIntoDB = async () => {
     }
   });
 
-  // Flatten listDeliverMen into an array of 
+  // Flatten listDeliverMen into an 
   const flatList = listDeliverMen.map((entry) => {
     const [key, value] = Object.entries(entry)[0];
     return { id: key, deliveries: value };
