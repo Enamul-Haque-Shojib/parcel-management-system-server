@@ -213,6 +213,7 @@ const createJwtToken = async (payload: { email: string }) => {
   const auth = await AuthModel.isAuthExistByEmail(email);
 
   const jwtPayload = {
+    authId: auth.authId,
     email: auth.email,
     role: auth.role || '',
   };
@@ -226,6 +227,7 @@ const createJwtToken = async (payload: { email: string }) => {
   return {
     token: accessToken,
     role: auth.role,
+    authId: auth.authId
   };
 };
 
