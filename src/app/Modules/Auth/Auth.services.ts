@@ -32,7 +32,6 @@ const authAccountIntoDB = async (email: string, payload: TAuth) => {
   return authData;
 };
 const updateAuthIntoDB = async (id: string, payload: Partial<TAuth>) => {
-
   const updateAuthInfo = await AuthModel.findByIdAndUpdate(id, payload, {
     new: true,
   });
@@ -69,7 +68,7 @@ const getAllDeliverMenFromDB = async () => {
   const listDeliverMenInfo: TDeliverManInfo[] = [];
 
   deliverMenData.forEach((man) => {
-    const deliverManInfo: TDeliverManInfo = {}; 
+    const deliverManInfo: TDeliverManInfo = {};
     deliverManInfo.deliverMan_id = man.authId;
     deliverManInfo.name = man.authName;
     deliverManInfo.image = man.authImgUrl;
@@ -77,7 +76,10 @@ const getAllDeliverMenFromDB = async () => {
 
     let deliveredCount = 0;
     parcelData.forEach((parcel) => {
-      if (man.authId === parcel.deliveryMan && parcel.bookingStatus === 'Delivered') {
+      if (
+        man.authId === parcel.deliveryMan &&
+        parcel.bookingStatus === 'Delivered'
+      ) {
         deliveredCount++;
       }
     });
@@ -87,13 +89,15 @@ const getAllDeliverMenFromDB = async () => {
     deliverManInfo.reviews = 0;
 
     reviewsData.forEach((review) => {
-      if (review.deliverManId === man.authId) { // Match by authId
+      if (review.deliverManId === man.authId) {
+        // Match by authId
         const totalReviews = review.reviews.length;
         let ratingCount = 0;
         review.reviews.forEach((r) => {
           ratingCount += r.rating;
         });
-        deliverManInfo.reviews = totalReviews > 0 ? ratingCount / totalReviews : 0;
+        deliverManInfo.reviews =
+          totalReviews > 0 ? ratingCount / totalReviews : 0;
       }
     });
 
@@ -102,7 +106,6 @@ const getAllDeliverMenFromDB = async () => {
 
   console.log(listDeliverMenInfo);
 };
-
 
 const deleteAuthFromDB = async (id: string) => {
   const deleteAuthInfo = await AuthModel.findByIdAndDelete(id);
@@ -126,11 +129,10 @@ const addUserReviewIntoDB = async (
 };
 
 const getAllDeliverMenReviewsFromDB = async () => {
-  const result = await UserReviewModel.find()
+  const result = await UserReviewModel.find();
   return result;
 };
 const getSingleDeliverManReviewsFromDB = async (deliverManId: string) => {
-
   const reviewsData = await UserReviewModel.findOne(
     { deliverManId },
     { reviews: 1 },
@@ -156,7 +158,7 @@ const getSingleDeliverManReviewsFromDB = async (deliverManId: string) => {
 };
 
 const parcelIntoDB = async (id: string, payload: Record<string, unknown>) => {
-  console.log(id, payload)
+  console.log(id, payload);
   const updatedParcel = await ParcelModel.findByIdAndUpdate(
     id,
     {
@@ -227,7 +229,7 @@ const createJwtToken = async (payload: { email: string }) => {
   return {
     token: accessToken,
     role: auth.role,
-    authId: auth.authId
+    authId: auth.authId,
   };
 };
 

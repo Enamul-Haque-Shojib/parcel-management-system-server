@@ -21,16 +21,19 @@ router.patch(
 );
 router.get(
   '/',
- 
-   AuthControllers.getAllAuths);
+
+  AuthControllers.getAllAuths,
+);
 router.get(
   '/deliver-man',
-  auth(AuthRole.Admin,AuthRole.DeliverMan),
-   AuthControllers.getAllDeliverMen);
+  auth(AuthRole.Admin, AuthRole.DeliverMan),
+  AuthControllers.getAllDeliverMen,
+);
 router.delete(
   '/delete-auth/:id',
   auth(AuthRole.Admin),
-   AuthControllers.deleteSingleAuth);
+  AuthControllers.deleteSingleAuth,
+);
 router.patch(
   '/review-user/:id',
   auth(AuthRole.User),
@@ -39,27 +42,29 @@ router.patch(
 );
 router.get(
   '/get-reviews/',
-  auth(AuthRole.Admin,AuthRole.DeliverMan),
-  AuthControllers.getAllDeliverMenReviews);
-  
-router.get(
-  '/get-reviews/:id', 
-  auth(AuthRole.Admin,AuthRole.DeliverMan),
-  AuthControllers.getSingleDeliverManReviews);
+  auth(AuthRole.Admin, AuthRole.DeliverMan),
+  AuthControllers.getAllDeliverMenReviews,
+);
 
-router.patch(
-  '/manage-parcel/:id',
-  AuthControllers.manageParcel);
+router.get(
+  '/get-reviews/:id',
+  auth(AuthRole.Admin, AuthRole.DeliverMan),
+  AuthControllers.getSingleDeliverManReviews,
+);
+
+router.patch('/manage-parcel/:id', AuthControllers.manageParcel);
 
 router.patch(
   '/parcel-status/:id',
-  
-   AuthControllers.parcelStatusChange);
+
+  AuthControllers.parcelStatusChange,
+);
 
 router.patch(
   '/auth-role/:id',
 
-   AuthControllers.authRoleChange);
+  AuthControllers.authRoleChange,
+);
 
 router.post('/jwt', AuthControllers.jwtToken);
 

@@ -22,7 +22,7 @@ const auth = (...requiredRoles: TAuthRole[]) => {
     // checking if the given token is valid
     const decoded = verifyToken(token, config.jwt_access_secret as string);
 
-    const {email, role } = decoded;
+    const { email, role } = decoded;
 
     // // checking if the user is exist
     const user = await AuthModel.isAuthExistByEmail(email);

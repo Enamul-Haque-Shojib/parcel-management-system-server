@@ -21,7 +21,7 @@ const authAccount = catchAsync(async (req, res) => {
 });
 
 const updateAuth = catchAsync(async (req, res) => {
-  console.log('controll--->>>',req.params.id, req.body)
+  console.log('controll--->>>', req.params.id, req.body);
   const result = await AuthServices.updateAuthIntoDB(req.params.id, req.body);
 
   sendResponse(res, {
@@ -85,7 +85,9 @@ const getAllDeliverMenReviews = catchAsync(async (req, res) => {
   });
 });
 const getSingleDeliverManReviews = catchAsync(async (req, res) => {
-  const result = await AuthServices.getSingleDeliverManReviewsFromDB(req.params.id);
+  const result = await AuthServices.getSingleDeliverManReviewsFromDB(
+    req.params.id,
+  );
 
   sendResponse(res, {
     statusCode: 200,
@@ -95,7 +97,7 @@ const getSingleDeliverManReviews = catchAsync(async (req, res) => {
   });
 });
 const manageParcel = catchAsync(async (req, res) => {
-  console.log(req.params.id, req.body)
+  console.log(req.params.id, req.body);
   const result = await AuthServices.parcelIntoDB(req.params.id, req.body);
 
   sendResponse(res, {

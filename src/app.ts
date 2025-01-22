@@ -10,7 +10,10 @@ app.use(express.text());
 app.use(express.json());
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://parcel-management-system-ae1b6.web.app'],
+    origin: [
+      'http://localhost:5173',
+      'https://parcel-management-system-ae1b6.web.app',
+    ],
     credentials: true,
   }),
 );
