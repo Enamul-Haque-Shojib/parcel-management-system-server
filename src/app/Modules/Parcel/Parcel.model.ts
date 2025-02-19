@@ -84,9 +84,7 @@ const parcelSchema = new Schema<TParcel, ParcelStaticModel>(
   },
 );
 
-// parcelSchema.statics.isParcelExistsById = async function (id: string) {
-//     return await ParcelModel.findById(id );
-//   };
+
 
 export const ParcelModel = model<TParcel, ParcelStaticModel>(
   'Parcel',
