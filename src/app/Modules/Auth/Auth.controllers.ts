@@ -84,6 +84,36 @@ const getAllDeliverMenReviews = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+
+
+const feedBackUser = catchAsync(async(req, res) => {
+
+  const result = await AuthServices.feedBackUserIntoDB(req.body);
+
+  sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "User feedback created successfully",
+      data: result
+  })
+});
+const getAllFeedBackUser = catchAsync(async(req, res) => {
+  
+
+  const result = await AuthServices.getAllFeedBackUserIntoDB();
+
+  sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "User feedback retrieve successfully",
+      data: result
+  })
+});
+
+
+
+
 const getSingleDeliverManReviews = catchAsync(async (req, res) => {
   const result = await AuthServices.getSingleDeliverManReviewsFromDB(
     req.params.id,
@@ -157,4 +187,6 @@ export const AuthControllers = {
   parcelStatusChange,
   authRoleChange,
   jwtToken,
+  feedBackUser,
+  getAllFeedBackUser
 };

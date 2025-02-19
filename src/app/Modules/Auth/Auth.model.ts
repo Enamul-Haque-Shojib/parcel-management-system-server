@@ -1,5 +1,17 @@
 import { model, Schema } from 'mongoose';
-import { TReview, TAuth, TUserReview, AuthStaticModel } from './Auth.interface';
+import { TReview, TAuth, TUserReview, AuthStaticModel, TFeedBack } from './Auth.interface';
+
+
+const feedBackSchema = new Schema<TFeedBack>({
+  feedbackUserPhoto: { type: String, required: true },
+  name: { type: String, required: true },
+  lifeStyle: {type: String, require: true},
+  feedBack: {
+    type: String,
+    required: true,
+  }
+});
+
 
 const reviewSchema = new Schema<TReview>({
   userName: {
@@ -84,3 +96,5 @@ export const UserReviewModel = model<TUserReview>(
   'User Review',
   userReviewSchema,
 );
+
+export const FeedBackModel = model<TFeedBack>('FeedBack', feedBackSchema);

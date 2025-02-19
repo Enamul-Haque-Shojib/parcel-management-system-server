@@ -2,6 +2,14 @@
 import { Model } from 'mongoose';
 import { AuthRole } from './Auth.constant';
 
+
+export type TFeedBack = {
+  feedbackUserPhoto: string;
+  name:string;
+  lifeStyle: string;
+  feedBack: string;
+}
+
 export type TReview = {
   userName: string;
   userImgUrl: string;

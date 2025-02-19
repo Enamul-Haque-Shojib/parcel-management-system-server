@@ -1,7 +1,7 @@
 import AppError from '../../errors/AppError';
 import { AuthRole, authSearchableField } from './Auth.constant';
-import { TAuth, TUserReview } from './Auth.interface';
-import { AuthModel, UserReviewModel } from './Auth.model';
+import { TAuth, TFeedBack, TUserReview } from './Auth.interface';
+import { AuthModel, FeedBackModel, UserReviewModel } from './Auth.model';
 import {
   generateAdminId,
   generateUserId,
@@ -157,6 +157,22 @@ const getSingleDeliverManReviewsFromDB = async (deliverManId: string) => {
   return result;
 };
 
+
+const feedBackUserIntoDB = async (userData: TFeedBack) => {
+  
+  const feedBack = await FeedBackModel.create(userData);
+  
+
+return feedBack;
+
+};
+const getAllFeedBackUserIntoDB = async () => {
+  const feedBack = await FeedBackModel.find();
+  
+return feedBack;
+
+};
+
 const parcelIntoDB = async (id: string, payload: Record<string, unknown>) => {
   console.log(id, payload);
   const updatedParcel = await ParcelModel.findByIdAndUpdate(
@@ -245,4 +261,6 @@ export const AuthServices = {
   parcelIntoDB,
   authRoleChangeIntoDB,
   createJwtToken,
+  feedBackUserIntoDB,
+  getAllFeedBackUserIntoDB
 };
