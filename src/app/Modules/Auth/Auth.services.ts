@@ -101,7 +101,7 @@ const getAllDeliverMenFromDB = async () => {
       }
     });
 
-    listDeliverMenInfo.push(deliverManInfo); // Push a new object into the array
+    listDeliverMenInfo.push(deliverManInfo); 
   });
 
   console.log(listDeliverMenInfo);
