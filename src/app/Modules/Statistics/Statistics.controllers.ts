@@ -49,9 +49,23 @@ const statisticsAuthParcel = catchAsync(async (req, res) => {
   });
 });
 
+const dashboardStatistics = catchAsync(async (req, res) => {
+  const result = await StatisticsServices.dashboardStatisticsFromDB(
+    req.body,
+  );
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'successfully calculated for dashboard statistics',
+    data: result,
+  });
+});
+
 export const StatisticsControllers = {
   topDeliverThreeMen,
   numberBookedDeliveredUsingApp,
   statisticsForChart,
   statisticsAuthParcel,
+  dashboardStatistics
 };

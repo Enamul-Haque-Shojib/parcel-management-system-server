@@ -24,5 +24,10 @@ router.get(
 
   StatisticsControllers.statisticsAuthParcel,
 );
+router.post(
+  '/dashboard-auth',
+
+  StatisticsControllers.dashboardStatistics,
+);
 
 export const StatisticsRoutes = router;

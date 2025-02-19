@@ -29,7 +29,7 @@ const getAllParcelsFromDB = async (query: Record<string, unknown>) => {
   const parcelQuery = new QueryBuilder(ParcelModel.find(), query)
     .search(parcelSearchableField)
     .sortAndOrder()
-    .paginate()
+    
     .filter();
   const result = parcelQuery.modelQuery;
 

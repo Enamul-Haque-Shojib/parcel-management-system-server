@@ -1,4 +1,5 @@
 import AppError from '../../errors/AppError';
+import { TAuth } from '../Auth/Auth.interface';
 import { AuthModel, UserReviewModel } from '../Auth/Auth.model';
 import { ParcelModel } from '../Parcel/Parcel.model';
 
@@ -193,6 +194,78 @@ const statisticsAuthParcelFromDB = async (id: string) => {
 
     return { id: authData.authId, deliveredCount, avgReview };
   }
+
+}
+const dashboardStatisticsFromDB = async (payload:{role: string, email: string}) => {
+  
+  if(payload.role === 'Admin'){
+    const parcelData = await ParcelModel.find(); 
+  const authData = await AuthModel.find(); 
+    const userData : TAuth[]  = [];
+    const deliverMenData : TAuth[]= [];
+    let onTheWay = 0;
+    let delivered = 0;
+    let pending = 0;
+    parcelData.forEach((parcel) => {
+      if(parcel.bookingStatus === 'On the way'){
+        onTheWay ++;
+      }else if(parcel.bookingStatus === 'Delivered'){
+        delivered++;
+      }else if(parcel.bookingStatus === 'Pending'){
+        pending ++;
+      }
+    })
+    authData.forEach((auth)=>{
+      if(auth.role === 'DeliverMan'){
+        deliverMenData.push(auth)
+      }else if(auth.role === 'User'){
+        userData.push(auth)
+      }
+    })
+
+    return {onTheWay, pending, delivered, userData, deliverMenData}
+
+  }else if(payload.role === 'DeliverMan'){
+    
+    const authData = await AuthModel.findOne({email: payload.email}); 
+    const parcelData = await ParcelModel.find({deliveryMan: authData?.authId});
+    let onTheWay = 0;
+    let delivered = 0;
+    let pending = 0;
+    parcelData.forEach((parcel) => {
+      if(parcel.bookingStatus === 'On the way'){
+        onTheWay ++;
+      }else if(parcel.bookingStatus === 'Delivered'){
+        delivered++;
+      }else if(parcel.bookingStatus === 'Pending'){
+        pending ++;
+      }
+    })
+
+    return {onTheWay, delivered, pending}
+  
+  }else if(payload.role === 'User'){
+    
+    const authData = await AuthModel.findOne({email: payload.email}); 
+    const parcelData = await ParcelModel.find({email: authData?.email});
+    let onTheWay = 0;
+    let delivered = 0;
+    let pending = 0;
+    parcelData.forEach((parcel) => {
+      if(parcel.bookingStatus === 'On the way'){
+        onTheWay ++;
+      }else if(parcel.bookingStatus === 'Delivered'){
+        delivered++;
+      }else if(parcel.bookingStatus === 'Pending'){
+        pending ++;
+      }
+    })
+
+    return {onTheWay, delivered, pending}
+  }
+
+
+
 };
 
 export const StatisticsServices = {
@@ -201,4 +274,5 @@ export const StatisticsServices = {
   statisticsForBarChartFromDB,
   statisticsForLineChartFromDB,
   statisticsAuthParcelFromDB,
+  dashboardStatisticsFromDB
 };

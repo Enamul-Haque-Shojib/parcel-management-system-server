@@ -36,7 +36,7 @@ const auth = (...requiredRoles: TAuthRole[]) => {
     }
 
     req.user = decoded as JwtPayload & { role: string };
-    console.log('you are auth-->', email, role);
+    
     next();
   });
 };

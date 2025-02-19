@@ -44,7 +44,7 @@ const getAllAuthsFromDB = async (query: Record<string, unknown>) => {
   const authQuery = new QueryBuilder(AuthModel.find(), query)
     .search(authSearchableField)
     .sortAndOrder()
-    .paginate()
+    
     .filter();
   const result = authQuery.modelQuery;
 
@@ -85,7 +85,7 @@ const getAllDeliverMenFromDB = async () => {
     });
     deliverManInfo.delivered = deliveredCount;
 
-    // Initialize reviews with 0 by default
+    
     deliverManInfo.reviews = 0;
 
     reviewsData.forEach((review) => {
