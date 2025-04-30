@@ -52,11 +52,9 @@ router.get(
   AuthControllers.getSingleDeliverManReviews,
 );
 
-
 router.post('/feedback-user', AuthControllers.feedBackUser);
 
 router.get('/feedback', AuthControllers.getAllFeedBackUser);
-
 
 router.patch('/manage-parcel/:id', AuthControllers.manageParcel);
 
