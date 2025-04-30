@@ -13,18 +13,29 @@ router.post(
   validateRequest(parcelValidationSchema.createParcelValidationSchema),
   ParcelControllers.createParcel,
 );
+
+
+
 router.patch(
   '/update-parcel/:id',
   auth(AuthRole.User),
   validateRequest(parcelValidationSchema.updateParcelValidationSchema),
   ParcelControllers.updateParcel,
 );
+
+
+
+
 router.get(
   '/',
   auth(AuthRole.Admin, AuthRole.DeliverMan, AuthRole.User),
   ParcelControllers.getAllParcels,
 );
+
+
 router.get('/:id', ParcelControllers.getSingleParcel);
+
+
 router.delete('/delete-parcel/:id', ParcelControllers.deleteSingleParcel);
 
 export const ParcelRoutes = router;
