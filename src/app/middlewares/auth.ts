@@ -14,12 +14,12 @@ const auth = (...requiredRoles: TAuthRole[]) => {
     // const token = req.headers.Authorization;
     const token = req.headers['authorization'];
 
-    // checking if the token is missing
+    
     if (!token) {
       throw new AppError(401, 'You are not authorized!');
     }
 
-    // checking if the given token is valid
+    
     const decoded = verifyToken(token, config.jwt_access_secret as string);
 
     const { email, role } = decoded;
