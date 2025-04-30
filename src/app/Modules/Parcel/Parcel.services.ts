@@ -13,6 +13,8 @@ const createParcelIntoDB = async (payload: TParcel) => {
   return result;
 };
 
+
+
 const updateParcelIntoDB = async (id: string, payload: Partial<TParcel>) => {
   const updateParcelInfo = await ParcelModel.findByIdAndUpdate(id, payload, {
     new: true,
@@ -26,6 +28,8 @@ const updateParcelIntoDB = async (id: string, payload: Partial<TParcel>) => {
   
 };
 
+
+
 const getAllParcelsFromDB = async (query: Record<string, unknown>) => {
   const parcelQuery = new QueryBuilder(ParcelModel.find(), query)
     .search(parcelSearchableField)
@@ -38,14 +42,22 @@ const getAllParcelsFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+
+
+
 const getSingleParcelFromDB = async (id: string) => {
   const deleteParcelInfo = await ParcelModel.findById(id);
   return deleteParcelInfo;
 };
+
+
+
 const deleteSingleParcelFromDB = async (id: string) => {
   const deleteParcelInfo = await ParcelModel.findByIdAndDelete(id);
   return deleteParcelInfo;
 };
+
+
 
 export const ParcelServices = {
   createParcelIntoDB,
