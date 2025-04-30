@@ -90,7 +90,7 @@ const getAllDeliverMenFromDB = async () => {
 
     reviewsData.forEach((review) => {
       if (review.deliverManId === man.authId) {
-        // Match by authId
+        
         const totalReviews = review.reviews.length;
         let ratingCount = 0;
         review.reviews.forEach((r) => {

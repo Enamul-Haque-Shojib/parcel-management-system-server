@@ -13,6 +13,7 @@ const createParcel = catchAsync(async (req, res) => {
   });
 });
 
+
 const updateParcel = catchAsync(async (req, res) => {
   const result = await ParcelServices.updateParcelIntoDB(
     req.params.id,
@@ -26,6 +27,7 @@ const updateParcel = catchAsync(async (req, res) => {
   });
 });
 
+
 const getSingleParcel = catchAsync(async (req, res) => {
   const result = await ParcelServices.getSingleParcelFromDB(req.params.id);
   sendResponse(res, {
@@ -35,6 +37,7 @@ const getSingleParcel = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 const getAllParcels = catchAsync(async (req, res) => {
   const result = await ParcelServices.getAllParcelsFromDB(req.query);
   sendResponse(res, {
@@ -45,6 +48,7 @@ const getAllParcels = catchAsync(async (req, res) => {
   });
 });
 
+
 const deleteSingleParcel = catchAsync(async (req, res) => {
   const result = await ParcelServices.deleteSingleParcelFromDB(req.params.id);
   sendResponse(res, {
@@ -54,6 +58,7 @@ const deleteSingleParcel = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 
 export const ParcelControllers = {
   createParcel,
