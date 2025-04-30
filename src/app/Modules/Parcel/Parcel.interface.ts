@@ -27,6 +27,10 @@ export type TParcel = {
   isDeleted: boolean;
 };
 
+
+
+
+
 export interface ParcelStaticModel extends Model<TParcel> {
   isParcelExistById(id: string): Promise<TParcel>;
 }
