@@ -14,6 +14,9 @@ const numberBookedDeliveredUsingApp = catchAsync(async (req, res) => {
   });
 });
 
+
+
+
 const topDeliverThreeMen = catchAsync(async (req, res) => {
   const numberData = await StatisticsServices.topDeliverThreeMenIntoDB();
 
@@ -24,6 +27,9 @@ const topDeliverThreeMen = catchAsync(async (req, res) => {
     data: numberData,
   });
 });
+
+
+
 
 const statisticsForChart = catchAsync(async (req, res) => {
   const barChart = await StatisticsServices.statisticsForBarChartFromDB();
@@ -36,6 +42,9 @@ const statisticsForChart = catchAsync(async (req, res) => {
     data: { barChart, lineChart },
   });
 });
+
+
+
 const statisticsAuthParcel = catchAsync(async (req, res) => {
   const result = await StatisticsServices.statisticsAuthParcelFromDB(
     req.params.id,
@@ -49,6 +58,8 @@ const statisticsAuthParcel = catchAsync(async (req, res) => {
   });
 });
 
+
+
 const dashboardStatistics = catchAsync(async (req, res) => {
   const result = await StatisticsServices.dashboardStatisticsFromDB(
     req.body,
@@ -61,6 +72,8 @@ const dashboardStatistics = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+
 
 export const StatisticsControllers = {
   topDeliverThreeMen,
