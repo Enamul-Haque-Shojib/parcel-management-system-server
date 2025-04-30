@@ -8,7 +8,7 @@ import { AuthRole } from './Auth.constant';
 const router = express.Router();
 
 router.post(
-  '/account/:email',
+  '/account/:email',    // locla5000/auth/account/:ad@gsdf
   validateRequest(authValidationSchema.authRegisterValidationSchema),
   AuthControllers.authAccount,
 );

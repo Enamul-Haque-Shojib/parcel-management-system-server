@@ -87,6 +87,9 @@ const authSchema = new Schema<TAuth, AuthStaticModel>(
 authSchema.statics.isAuthExistById = async function (id: string) {
   return await AuthModel.findById(id, { authId: 1 });
 };
+
+
+
 authSchema.statics.isAuthExistByEmail = async function (email: string) {
   return await AuthModel.findOne({ email });
 };

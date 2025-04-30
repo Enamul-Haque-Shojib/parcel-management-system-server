@@ -23,6 +23,7 @@ const updateParcelIntoDB = async (id: string, payload: Partial<TParcel>) => {
   }
 
   return updateParcelInfo;
+  
 };
 
 const getAllParcelsFromDB = async (query: Record<string, unknown>) => {

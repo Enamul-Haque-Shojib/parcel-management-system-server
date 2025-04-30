@@ -46,7 +46,7 @@ class QueryBuilder<T> {
 
     const filters: Record<string, unknown> = {};
 
-    // Special handling for `participants`
+    
     if (queryObj.participants) {
       const participants = Array.isArray(queryObj.participants)
         ? queryObj.participants
