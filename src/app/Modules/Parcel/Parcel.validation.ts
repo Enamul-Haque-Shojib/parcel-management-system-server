@@ -25,6 +25,9 @@ const createParcelValidationSchema = z.object({
       .min(1, 'Delivery address longitude is required'),
   }),
 });
+
+
+
 const updateParcelValidationSchema = z.object({
   body: z.object({
     name: z.string().optional(),
@@ -44,6 +47,8 @@ const updateParcelValidationSchema = z.object({
     deliveryAddressLongitude: z.string().optional(),
   }),
 });
+
+
 
 export const parcelValidationSchema = {
   createParcelValidationSchema,

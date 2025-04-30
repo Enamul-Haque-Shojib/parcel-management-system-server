@@ -15,6 +15,9 @@ const findLastParcelNumber = async () => {
   return lastParcel?.parcelNumber ? lastParcel.parcelNumber : undefined;
 };
 
+
+
+
 export const generateParcelNumber = async () => {
   let currentNumber = (0).toString();
 
